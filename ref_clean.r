@@ -34,7 +34,26 @@ s5 <- read.delim("20140911_s5.txt",
                  sep="\t",
                  row.names=NULL)
 
+## append all
 refs.raw <- rbind(s1,s2,s3,s4,s5)
+  dim(refs.raw) # 2040  60
+
+## clean records
+# look in title, abstract, and author's key words to find "Bangladesh"
+# 'TI' = title
+# 'DE' = author's key words
+# 'AB' = abstract
+
+refs.raw$drop <- ifelse(grepl("Bangladesh",refs.raw$TI) | grepl("Bangladesh",refs.raw$DE) | grepl("Bangladesh",refs.raw$AB), 0, 1)
+  table(refs.raw$drop, useNA="ifany")
+
+refs.bdesh <- subset(refs.raw, drop == 0)
+refs.drop <- subset(refs.raw, drop == 1)
+# check out the dropped records separately
+# write.table(refs.drop, file="C:\\Users\\jochem\\Dropbox\\swap\\proj\\arsenic_ref\\arsenic_refs\\refs_drop.txt",
+#             sep="\t",
+#             row.names=F)
+  dim(refs.bdesh) # 1044  60
 
 
 
