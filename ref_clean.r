@@ -55,5 +55,9 @@ refs.drop <- subset(refs.raw, drop == 1)
 #             row.names=F)
   dim(refs.bdesh) # 1044  60
 
-
+write.table(refs.bdesh, file="C:\\Users\\jochem\\Dropbox\\swap\\proj\\arsenic_ref\\arsenic_refs\\refs_bdesh.txt",
+                        sep="\t",
+                        row.names=F,
+                        na="",
+                        quote=T)
 
