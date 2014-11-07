@@ -44,7 +44,11 @@ refs.raw <- rbind(s1,s2,s3,s4,s5)
 # 'DE' = author's key words
 # 'AB' = abstract
 
-refs.raw$drop <- ifelse(grepl("Bangladesh",refs.raw$TI) | grepl("Bangladesh",refs.raw$DE) | grepl("Bangladesh",refs.raw$AB), 0, 1)
+refs.raw$drop <- ifelse((grepl("Bangladesh",refs.raw$TI) | grepl("Bangladesh",refs.raw$DE) | grepl("Bangladesh",refs.raw$AB))
+                        & (grepl("arsenic",refs.raw$TI) | grepl("arsenic",refs.raw$DE) | grepl("arsenic",refs.raw$AB))
+                        , 0, 1)
+
+
   table(refs.raw$drop, useNA="ifany")
 
 refs.bdesh <- subset(refs.raw, drop == 0)
@@ -55,7 +59,7 @@ refs.drop <- subset(refs.raw, drop == 1)
 #             row.names=F)
   dim(refs.bdesh) # 1044  60
 
-write.table(refs.bdesh, file="C:\\Users\\jochem\\Dropbox\\swap\\proj\\arsenic_ref\\arsenic_refs\\refs_bdesh.txt",
+write.table(refs.bdesh, file="C:\\Users\\jochem\\Dropbox\\swap\\proj\\arsenic_ref\\arsenic_refs\\refs_bdesh_Nov2014.txt",
                         sep="\t",
                         row.names=F,
                         na="",
